@@ -29,7 +29,6 @@ export default function Dashboard() {
     { name: "João Silva", phone: "(11) 98765-4321", vehicle: "Honda Civic 2022", date: "Hoje, 10:30" },
     { name: "Maria Oliveira", phone: "(11) 91234-5678", vehicle: "Toyota Corolla 2023", date: "Hoje, 09:15" },
     { name: "Pedro Santos", phone: "(11) 99876-5432", vehicle: "Jeep Compass", date: "  09:15" },
-    { name: "Pedro Santos", phone: "(11) 99876-5432", vehicle: "Jeep Compass", date: "Hoje, 08:45" },
     { name: "Ana Souza", phone: "(11) 97654-3210", vehicle: "Hyundai HB20", date: "Ontem, 16:20" },
     { name: "Carlos Mendes", phone: "(11) 95432-1098", vehicle: "Volkswagen T-Cross", date: "Ontem, 14:30" },
   ]
@@ -43,7 +42,7 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="flex-1 space-y-6 p-6">
+    <div className="flex-1 w-full space-y-6 p-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-sm text-muted-foreground">
