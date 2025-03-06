@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, Car, Home, MessageSquare, Settings, ShoppingCart, Users } from "lucide-react"
+import { Calendar, Car, Home, Users } from "lucide-react"
 
 import {
   Sidebar,
@@ -39,26 +39,26 @@ const menuItems = [
     icon: Calendar,
     url: "/agendamentos",
   },
-  {
-    title: "Atendimentos",
-    icon: MessageSquare,
-    url: "/atendimentos",
-  },
-  {
-    title: "Vendas",
-    icon: ShoppingCart,
-    url: "/vendas",
-  },
-  {
-    title: "Configurações",
-    icon: Settings,
-    url: "/configuracoes",
-  },
+  // {
+  //   title: "Atendimentos",
+  //   icon: MessageSquare,
+  //   url: "/atendimentos",
+  // },
+  // {
+  //   title: "Vendas",
+  //   icon: ShoppingCart,
+  //   url: "/vendas",
+  // },
+  // {
+  //   title: "Configurações",
+  //   icon: Settings,
+  //   url: "/configuracoes",
+  // },
 ]
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar className="hidden lg:block">
       <SidebarHeader className="flex h-14 items-center border-b px-4">
         <h1 className="text-lg font-bold">Auto Revenda</h1>
       </SidebarHeader>

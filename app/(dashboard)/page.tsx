@@ -42,8 +42,8 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="flex-1 w-full space-y-6 p-6">
-      <div className="flex items-center justify-between">
+    <div className="flex-1 w-full space-y-6 p-6 px-6">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-sm text-muted-foreground">
           Atualizado em {new Date().toLocaleDateString("pt-BR")} às{" "}
@@ -52,7 +52,7 @@ export default function Dashboard() {
       </div>
 
       {/* Cards de resumo */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
         {summaryData.map((item) => (
           <Card key={item.title}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -77,24 +77,26 @@ export default function Dashboard() {
             <CardTitle>Leads Recentes</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Nome</TableHead>
-                  <TableHead>Veículo</TableHead>
-                  <TableHead>Data</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {recentLeads.map((lead) => (
-                  <TableRow key={lead.name}>
-                    <TableCell className="font-medium">{lead.name}</TableCell>
-                    <TableCell>{lead.vehicle}</TableCell>
-                    <TableCell>{lead.date}</TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nome</TableHead>
+                    <TableHead>Veículo</TableHead>
+                    <TableHead className="hidden md:block">Data</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody className="w-full">
+                  {recentLeads.map((lead) => (
+                    <TableRow key={lead.name}>
+                      <TableCell className="font-medium">{lead.name}</TableCell>
+                      <TableCell className="truncate">{lead.vehicle}</TableCell>
+                      <TableCell className="truncate hidden md:block">{lead.date}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </CardContent>
         </Card>
 
@@ -104,36 +106,38 @@ export default function Dashboard() {
             <CardTitle>Agendamentos Recentes</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Nome</TableHead>
-                  <TableHead>Veículo</TableHead>
-                  <TableHead>Data</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {recentAppointments.map((appointment) => (
-                  <TableRow key={appointment.name}>
-                    <TableCell className="font-medium">{appointment.name}</TableCell>
-                    <TableCell>{appointment.vehicle}</TableCell>
-                    <TableCell>{appointment.date}</TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
-                          appointment.status === "Confirmado"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-yellow-100 text-yellow-800"
-                        }`}
-                      >
-                        {appointment.status}
-                      </span>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nome</TableHead>
+                    <TableHead className="hidden md:block">Veículo</TableHead>
+                    <TableHead className="hidden md:block">Data</TableHead>
+                    <TableHead>Status</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {recentAppointments.map((appointment) => (
+                    <TableRow key={appointment.name}>
+                      <TableCell className="font-medium">{appointment.name}</TableCell>
+                      <TableCell className="hidden md:block">{appointment.vehicle}</TableCell>
+                      <TableCell className="hidden md:block">{appointment.date}</TableCell>
+                      <TableCell>
+                        <span
+                          className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
+                            appointment.status === "Confirmado"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-yellow-100 text-yellow-800"
+                          }`}
+                        >
+                          {appointment.status}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -676,18 +676,18 @@ export default function LeadsPage() {
           </div>
         </div>
 
-        <TabsContent value="todos" className="mt-4">
+        <TabsContent value="todos" className="w-full mt-4">
           <div className="rounded-md border">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Lead</TableHead>
-                  <TableHead>Veículo de Interesse</TableHead>
-                  <TableHead>Data</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Prioridade</TableHead>
-                  <TableHead>Origem</TableHead>
-                  <TableHead className="text-right">Ações</TableHead>
+                  <TableHead className=" hidden lg:table-cell">Veículo de Interesse</TableHead>
+                  <TableHead className=" hidden lg:table-cell">Data</TableHead>
+                  <TableHead >Status</TableHead>
+                  <TableHead className=" hidden lg:table-cell">Prioridade</TableHead>
+                  <TableHead className=" hidden lg:table-cell">Origem</TableHead>
+                  <TableHead className="text-right hidden lg:table-cell">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -702,19 +702,19 @@ export default function LeadsPage() {
                     <TableRow key={lead.id}>
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                          <div className="hidden lg:flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                             <User className="h-5 w-5 text-primary" />
                           </div>
                           <div>
                             <div className="font-medium">{lead.nome}</div>
                             <div className="text-xs text-muted-foreground">
-                              {lead.telefone} • {lead.email}
+                              {lead.telefone}  <span className="hidden md:block">• {lead.email}</span>
                             </div>
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell>{lead.veiculo_interesse}</TableCell>
-                      <TableCell>
+                      <TableCell  className=" hidden lg:table-cell">{lead.veiculo_interesse}</TableCell>
+                      <TableCell  className=" hidden lg:table-cell">
                         <div className="flex flex-col">
                           <span className="text-xs font-medium">Criado: {formatDate(lead.data_criacao)}</span>
                           <span className="text-xs text-muted-foreground">
@@ -740,7 +740,7 @@ export default function LeadsPage() {
                           {lead.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className=" hidden lg:table-cell">
                         <Badge
                           variant="outline"
                           className={`${
@@ -754,10 +754,10 @@ export default function LeadsPage() {
                           {lead.prioridade}
                         </Badge>
                       </TableCell>
-                      <TableCell>
+                      <TableCell  className=" hidden lg:table-cell">
                         <Badge variant="outline">{lead.origem}</Badge>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="hidden lg:table-cell text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button
                             variant="ghost"

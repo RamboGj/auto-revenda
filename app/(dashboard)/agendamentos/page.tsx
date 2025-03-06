@@ -2,18 +2,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import {
-  Calendar,
-  Check,
-  Clock,
-  Download,
-  Filter,
-  MoreHorizontal,
-  Search,
-  SlidersHorizontal,
-  User,
-  X,
-} from "lucide-react"
+import { Calendar, Check, Clock, Download, Filter, MoreHorizontal, Search, SlidersHorizontal, User, X } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -272,7 +261,6 @@ export default function AgendamentosPage() {
   }, [searchTerm, filterStatus, filterTipo, filterVendedor, sortBy, agendamentos, activeTab])
 
   // Função para atualizar um agendamento
-   
   const handleUpdateAgendamento = (updatedAgendamento: any) => {
     setAgendamentos(
       agendamentos.map((agendamento) => (agendamento.id === updatedAgendamento.id ? updatedAgendamento : agendamento)),
@@ -361,7 +349,7 @@ export default function AgendamentosPage() {
       </div>
 
       {/* Cards de estatísticas */}
-      <div className="grid gap-4 md:grid-cols-6">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-6">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Total</CardTitle>
@@ -394,7 +382,7 @@ export default function AgendamentosPage() {
             <div className="text-2xl font-bold">{stats.confirmados}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="sm:col-span-2 md:col-span-1">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Reagendados</CardTitle>
           </CardHeader>
@@ -402,7 +390,7 @@ export default function AgendamentosPage() {
             <div className="text-2xl font-bold">{stats.reagendados}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="sm:col-span-2 md:col-span-1">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Cancelados</CardTitle>
           </CardHeader>
@@ -415,123 +403,125 @@ export default function AgendamentosPage() {
       {/* Tabs e filtros */}
       <Tabs defaultValue="todos" value={activeTab} onValueChange={setActiveTab}>
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
-          <TabsList>
+          <TabsList className="w-full overflow-x-auto sm:w-auto">
             <TabsTrigger value="todos">Todos</TabsTrigger>
             <TabsTrigger value="hoje">Hoje</TabsTrigger>
             <TabsTrigger value="pendentes">Pendentes</TabsTrigger>
             <TabsTrigger value="confirmados">Confirmados</TabsTrigger>
-            <TabsTrigger value="reagendados">Reagendados</TabsTrigger>
-            <TabsTrigger value="cancelados">Cancelados</TabsTrigger>
+            <TabsTrigger value="reagendados" className="hidden sm:inline-flex">Reagendados</TabsTrigger>
+            <TabsTrigger value="cancelados" className="hidden sm:inline-flex">Cancelados</TabsTrigger>
           </TabsList>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
             <div className="relative flex-1">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Buscar agendamentos..."
-                className="pl-8 md:w-[200px] lg:w-[300px]"
+                className="pl-8 w-full"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Filter className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[200px]">
-                <div className="p-2">
-                  <div className="mb-2">
-                    <label className="text-xs font-medium">Status</label>
-                    <Select value={filterStatus} onValueChange={setFilterStatus}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Todos" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">Todos</SelectItem>
-                        {statusOptions.map((status) => (
-                          <SelectItem key={status} value={status}>
-                            {status}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="mb-2">
-                    <label className="text-xs font-medium">Tipo</label>
-                    <Select value={filterTipo} onValueChange={setFilterTipo}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Todos" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">Todos</SelectItem>
-                        {tipoOptions.map((tipo) => (
-                          <SelectItem key={tipo} value={tipo}>
-                            {tipo}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="mb-2">
-                    <label className="text-xs font-medium">Vendedor</label>
-                    <Select value={filterVendedor} onValueChange={setFilterVendedor}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Todos" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">Todos</SelectItem>
-                        {vendedorOptions.map((vendedor) => (
-                          <SelectItem key={vendedor} value={vendedor}>
-                            {vendedor}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-2 w-full"
-                    onClick={() => {
-                      setFilterStatus("")
-                      setFilterTipo("")
-                      setFilterVendedor("")
-                      setSearchTerm("")
-                    }}
-                  >
-                    Limpar Filtros
+            <div className="flex space-x-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <Filter className="h-4 w-4" />
                   </Button>
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-[180px]">
-                <SlidersHorizontal className="mr-2 h-4 w-4" />
-                <SelectValue placeholder="Ordenar por" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="proximos">Próximos primeiro</SelectItem>
-                <SelectItem value="recentes">Mais recentes</SelectItem>
-                <SelectItem value="cliente-asc">Cliente (A-Z)</SelectItem>
-                <SelectItem value="cliente-desc">Cliente (Z-A)</SelectItem>
-              </SelectContent>
-            </Select>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-[200px]">
+                  <div className="p-2">
+                    <div className="mb-2">
+                      <label className="text-xs font-medium">Status</label>
+                      <Select value={filterStatus} onValueChange={setFilterStatus}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Todos" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Todos</SelectItem>
+                          {statusOptions.map((status) => (
+                            <SelectItem key={status} value={status}>
+                              {status}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="mb-2">
+                      <label className="text-xs font-medium">Tipo</label>
+                      <Select value={filterTipo} onValueChange={setFilterTipo}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Todos" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Todos</SelectItem>
+                          {tipoOptions.map((tipo) => (
+                            <SelectItem key={tipo} value={tipo}>
+                              {tipo}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="mb-2">
+                      <label className="text-xs font-medium">Vendedor</label>
+                      <Select value={filterVendedor} onValueChange={setFilterVendedor}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Todos" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Todos</SelectItem>
+                          {vendedorOptions.map((vendedor) => (
+                            <SelectItem key={vendedor} value={vendedor}>
+                              {vendedor}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="mt-2 w-full"
+                      onClick={() => {
+                        setFilterStatus("")
+                        setFilterTipo("")
+                        setFilterVendedor("")
+                        setSearchTerm("")
+                      }}
+                    >
+                      Limpar Filtros
+                    </Button>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-full sm:w-[180px]">
+                  <SlidersHorizontal className="mr-2 h-4 w-4" />
+                  <SelectValue placeholder="Ordenar por" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="proximos">Próximos primeiro</SelectItem>
+                  <SelectItem value="recentes">Mais recentes</SelectItem>
+                  <SelectItem value="cliente-asc">Cliente (A-Z)</SelectItem>
+                  <SelectItem value="cliente-desc">Cliente (Z-A)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
 
         <TabsContent value="todos" className="mt-4">
           <div className="rounded-md border">
-            <Table>
+            <Table className="overflow-x-scroll">
               <TableHeader>
                 <TableRow>
                   <TableHead>Cliente</TableHead>
-                  <TableHead>Veículo</TableHead>
-                  <TableHead>Data e Hora</TableHead>
-                  <TableHead>Tipo</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Vendedor</TableHead>
+                  <TableHead className="hidden lg:table-cell">Veículo</TableHead>
+                  <TableHead  className="hidden lg:table-cell">Data</TableHead>
+                  <TableHead className="hidden lg:table-cell">Tipo</TableHead>
+                  <TableHead >Status</TableHead>
+                  <TableHead className="hidden lg:table-cell">Vendedor</TableHead>
                   <TableHead className="text-right">Ações</TableHead>
                 </TableRow>
               </TableHeader>
@@ -547,30 +537,38 @@ export default function AgendamentosPage() {
                     <TableRow key={agendamento.id}>
                       <TableCell>
                         <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                          <div className="hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
                             <User className="h-5 w-5 text-primary" />
                           </div>
                           <div>
                             <div className="font-medium">{agendamento.cliente.nome}</div>
-                            <div className="text-xs text-muted-foreground">{agendamento.cliente.telefone}</div>
+                            <div className="text-xs text-muted-foreground">
+                              {agendamento.cliente.telefone}
+                            </div>
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell>{agendamento.veiculo}</TableCell>
-                      <TableCell>
+                      <TableCell className="hidden lg:table-cell">{agendamento.veiculo}</TableCell>
+                      <TableCell className="hidden lg:table-cell">
                         <div className="flex flex-col">
                           <div className="flex items-center">
                             <Calendar className="mr-1 h-3.5 w-3.5 text-muted-foreground" />
-                            <span className="text-sm">{formatDate(agendamento.data).split(" ")[0]}</span>
+                            <span className="text-sm">
+                              {formatDate(agendamento.data).split(" ")[0]}
+                            </span>
                           </div>
                           <div className="flex items-center">
                             <Clock className="mr-1 h-3.5 w-3.5 text-muted-foreground" />
-                            <span className="text-sm">{formatDate(agendamento.data).split(" ")[1]}</span>
+                            <span className="text-sm">
+                              {formatDate(agendamento.data).split(" ")[1]}
+                            </span>
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{agendamento.tipo}</Badge>
+                      <TableCell className="hidden lg:table-cell">
+                        <Badge variant="outline">
+                          {agendamento.tipo}
+                        </Badge>
                       </TableCell>
                       <TableCell>
                         <Badge
@@ -579,20 +577,20 @@ export default function AgendamentosPage() {
                             agendamento.status === "Confirmado"
                               ? "border-green-200 bg-green-50 text-green-700"
                               : agendamento.status === "Pendente"
-                                ? "border-yellow-200 bg-yellow-50 text-yellow-700"
-                                : agendamento.status === "Reagendado"
-                                  ? "border-blue-200 bg-blue-50 text-blue-700"
-                                  : "border-red-200 bg-red-50 text-red-700"
+                              ? "border-yellow-200 bg-yellow-50 text-yellow-700"
+                              : agendamento.status === "Reagendado"
+                              ? "border-blue-200 bg-blue-50 text-blue-700"
+                              : "border-red-200 bg-red-50 text-red-700"
                           }`}
                         >
                           {agendamento.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>{agendamento.vendedor}</TableCell>
+                      <TableCell className="hidden lg:table-cell">{agendamento.vendedor}</TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           {agendamento.status === "Pendente" && (
-                            <>
+                            <div className="hidden lg:flex">
                               <Button
                                 variant="ghost"
                                 size="icon"
@@ -611,7 +609,7 @@ export default function AgendamentosPage() {
                               >
                                 <X className="h-4 w-4" />
                               </Button>
-                            </>
+                            </div>
                           )}
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -629,7 +627,9 @@ export default function AgendamentosPage() {
                                 Editar
                               </DropdownMenuItem>
                               {agendamento.status !== "Confirmado" && (
-                                <DropdownMenuItem onClick={() => handleConfirmarAgendamento(agendamento.id)}>
+                                <DropdownMenuItem
+                                  onClick={() => handleConfirmarAgendamento(agendamento.id)}
+                                >
                                   Confirmar
                                 </DropdownMenuItem>
                               )}
@@ -708,4 +708,3 @@ export default function AgendamentosPage() {
     </div>
   )
 }
-

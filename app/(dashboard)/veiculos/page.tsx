@@ -369,9 +369,9 @@ export default function VeiculosPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Veículo</TableHead>
-              <TableHead>Ano</TableHead>
-              <TableHead>Preço</TableHead>
-              <TableHead>Quilometragem</TableHead>
+              <TableHead className="hidden lg:table-cell">Ano</TableHead>
+              <TableHead className="hidden lg:table-cell">Preço</TableHead>
+              <TableHead className="hidden lg:table-cell">Quilometragem</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
@@ -388,7 +388,7 @@ export default function VeiculosPage() {
                 <TableRow key={veiculo.id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 overflow-hidden rounded-md bg-muted">
+                      <div className="h-10 w-10 overflow-hidden hidden lg:block rounded-md bg-muted">
                         {veiculo.imagens && veiculo.imagens.length > 0 ? (
                           <Image
                             width={200}
@@ -411,9 +411,9 @@ export default function VeiculosPage() {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{veiculo.ano}</TableCell>
-                  <TableCell>{formatPrice(veiculo.preco)}</TableCell>
-                  <TableCell>{veiculo.quilometragem.toLocaleString()} km</TableCell>
+                  <TableCell  className="hidden lg:table-cell">{veiculo.ano}</TableCell>
+                  <TableCell  className="hidden lg:table-cell">{formatPrice(veiculo.preco)}</TableCell>
+                  <TableCell  className="hidden lg:table-cell">{veiculo.quilometragem.toLocaleString()} km</TableCell>
                   <TableCell>
                     <span
                       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
